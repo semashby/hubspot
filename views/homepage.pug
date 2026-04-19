@@ -16,12 +16,14 @@ html(lang="en")
             th Name
             th Game
             th Abilities
+            th Role
         tbody
           each record in records
             tr
-              td= record.properties.name || '—'
-              td= record.properties.game || '—'
-              td= record.properties.abilities || '—'
+              td= (record.properties.firstname || '') + ' ' + (record.properties.lastname || '')
+              td= record.properties.character_game || '—'
+              td= record.properties.character_abilities || '—'
+              td= record.properties.character_role || '—'
     else
       p No records found.
         a(href="/update-cobj") Add one now!

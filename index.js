@@ -10,7 +10,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
-const OBJECT_TYPE = process.env.CUSTOM_OBJECT_TYPE;
 const ACCESS_TOKEN = process.env.HUBSPOT_ACCESS_TOKEN;
 
 const hubspotClient = axios.create({
@@ -21,18 +20,15 @@ const hubspotClient = axios.create({
   },
 });
 
-// Homepage — list all custom object records
+// Homepage — list all contacts with custom character properties
 app.get('/', async (req, res) => {
   try {
-    const response = await hubspotClient.get(
-      `/crm/v3/objects/${OBJECT_TYPE}`,
-      {
-        params: {
-          properties: 'name,game,abilities',
-          limit: 100,
-        },
-      }
-    );
+    const response = await hubspotClient.get('/crm/v3/objects/contacts', {
+      params: {
+        properties: 'firstname,lastname,character_game,character_abilities,character_role',
+        limit: 100,
+      },
+    });
     const records = response.data.results;
     res.render('homepage', {
       title: 'Video Game Characters | HubSpot Practicum',
@@ -44,22 +40,27 @@ app.get('/', async (req, res) => {
   }
 });
 
-// GET form to add a new custom object record
+// GET form to add a new character record
 app.get('/update-cobj', (req, res) => {
   res.render('updates', {
     title: 'Update Custom Object Form | Integrating With HubSpot I Practicum',
   });
 });
 
-// POST form — create a new custom object record
+// POST form — create a new contact with character properties
 app.post('/update-cobj', async (req, res) => {
-  const { name, game, abilities } = req.body;
+  const { name, game, abilities, role } = req.body;
+  const [firstname, ...rest] = name.trim().split(' ');
+  const lastname = rest.join(' ') || '';
   try {
-    await hubspotClient.post(`/crm/v3/objects/${OBJECT_TYPE}`, {
+    await hubspotClient.post('/crm/v3/objects/contacts', {
       properties: {
-        name,
-        game,
-        abilities,
+        firstname,
+        lastname,
+        email: `${firstname.toLowerCase()}.${Date.now()}@characters.com`,
+        character_game: game,
+        character_abilities: abilities,
+        character_role: role,
       },
     });
     res.redirect('/');

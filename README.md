@@ -4,9 +4,7 @@ A Node.js + Express app that integrates with HubSpot's CRM API to manage a custo
 
 ## Custom Object List View
 
-[View Video Game Characters in HubSpot](https://app.hubspot.com/contacts/YOUR_ACCOUNT_ID/objects/YOUR_CUSTOM_OBJECT_ID/views/all/list)
-
-> **Note:** Replace `YOUR_ACCOUNT_ID` and `YOUR_CUSTOM_OBJECT_ID` with your actual HubSpot test account values.
+[View Video Game Characters (Contacts) in HubSpot](https://app-eu1.hubspot.com/contacts/148296445/objects/0-1/views/all/list)
 
 ## Setup
 
@@ -38,9 +36,10 @@ A Node.js + Express app that integrates with HubSpot's CRM API to manage a custo
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `name` | String | Character name (required) |
-| `game` | String | Game the character is from |
-| `abilities` | String | Character's key abilities |
+| `name` (firstname + lastname) | String | Character name (required) |
+| `character_game` | String | Game the character is from |
+| `character_abilities` | String | Character's key abilities |
+| `character_role` | String | Character's role/class |
 
 ## Tech Stack
 

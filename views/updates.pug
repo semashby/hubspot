@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    h1 Add a Video Game Character
+    a(href="/") Return to the homepage
+
+    form(method="POST" action="/update-cobj")
+      div.form-group
+        label(for="name") Name
+        input#name(type="text" name="name" required placeholder="e.g. Link")
+
+      div.form-group
+        label(for="game") Game
+        input#game(type="text" name="game" required placeholder="e.g. The Legend of Zelda")
+
+      div.form-group
+        label(for="abilities") Abilities
+        input#abilities(type="text" name="abilities" required placeholder="e.g. Sword, Shield, Hookshot")
+
+      button(type="submit") Add Character

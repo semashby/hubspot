@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    h1 Video Game Characters
+    a(href="/update-cobj") Add to this table
+
+    if records && records.length
+      table
+        thead
+          tr
+            th Name
+            th Game
+            th Abilities
+        tbody
+          each record in records
+            tr
+              td= record.properties.name || '—'
+              td= record.properties.game || '—'
+              td= record.properties.abilities || '—'
+    else
+      p No records found.
+        a(href="/update-cobj") Add one now!
